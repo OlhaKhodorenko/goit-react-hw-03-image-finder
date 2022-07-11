@@ -1,24 +1,38 @@
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  search: yup.string().required(),
+});
+
+const initialValues = {
+  search: '',
+};
 
 export const Searchbar = ({ onSubmit }) => {
-  const handelSubmit = (values, actions) => {
+  const handelSubmit = (values, { resetForm }) => {
+    onSubmit(values);
     console.log(values);
-    actions.resetForm();
+    resetForm();
   };
 
   return (
     <header className="searchbar">
-      <Formik initialValues={{ search: '' }} onSubmit={handelSubmit}>
-        <Form className="form">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handelSubmit}
+        validationSchema={schema}
+      >
+        <Form className="form" autoComplete="off">
           <button type="submit" className="button">
             <span className="button-label">Search</span>
           </button>
-
-          <input
+          <Field
             name="search"
             type="text"
             placeholder="Search images and photos"
           />
+          <ErrorMessage name="search" />
         </Form>
       </Formik>
     </header>
