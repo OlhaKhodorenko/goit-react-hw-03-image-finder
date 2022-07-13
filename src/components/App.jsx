@@ -86,7 +86,7 @@ export class App extends Component {
         {isOpen && (
           <Modal onClose={this.toggleModal} fullImage={fullImage} tags={tags} />
         )}
-        {images.length > 0 && images.length < total && (
+        {images.length > 0 && images.length < total && !isLoading && (
           <Button onClick={this.loadMore} />
         )}
       </div>
