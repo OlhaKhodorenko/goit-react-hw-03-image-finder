@@ -1,5 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { ImSearch } from 'react-icons/im';
+import PropTypes from 'prop-types';
+
 import * as yup from 'yup';
+import css from './searchbar.module.css';
 
 const schema = yup.object().shape({
   search: yup.string().required(),
@@ -12,29 +16,35 @@ const initialValues = {
 export const Searchbar = ({ onSubmit }) => {
   const handelSubmit = (values, { resetForm }) => {
     onSubmit(values);
-    console.log(values);
     resetForm();
   };
 
   return (
-    <header className="searchbar">
+    <header className={css.Searchbar}>
       <Formik
         initialValues={initialValues}
         onSubmit={handelSubmit}
         validationSchema={schema}
       >
-        <Form className="form" autoComplete="off">
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
+        <Form className={css.SearchForm} autoComplete="off">
+          <button type="submit" className={css.SearchFormButton}>
+            <span className="button-label">
+              <ImSearch />
+            </span>
           </button>
           <Field
             name="search"
             type="text"
             placeholder="Search images and photos"
+            className={css.SearchFormInput}
           />
           <ErrorMessage name="search" />
         </Form>
       </Formik>
     </header>
   );
+};
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
