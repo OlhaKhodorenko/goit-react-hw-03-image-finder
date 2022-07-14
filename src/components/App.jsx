@@ -2,7 +2,7 @@ import { Component } from 'react';
 import Button from './Button/button';
 import { ImageGallery } from './ImageGallery/imageGallery';
 import { Searchbar } from './Searchbar/searchbar';
-import * as API from './Service/api.js';
+import * as API from '../service/api.js';
 import Loader from './Loader/loader';
 import { Modal } from './Modal/modal';
 import { toast, ToastContainer } from 'react-toastify';
@@ -14,7 +14,6 @@ export class App extends Component {
     images: [],
     isLoading: false,
     page: 1,
-    perPage: 40,
     total: null,
     tags: '',
     status: 'idle',
@@ -61,7 +60,7 @@ export class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
   changeSearchQuery = ({ search }) => {
-    this.setState({ search });
+    this.setState({ search, images: [], page: 1 });
   };
   toggleModal = () => {
     this.setState(({ isOpen }) => ({ isOpen: !isOpen }));
