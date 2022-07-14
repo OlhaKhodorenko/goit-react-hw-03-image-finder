@@ -46,10 +46,10 @@ export class App extends Component {
           largeImageURL,
         })
       );
-      this.setState({
-        images: [...addedImages],
+      this.setState(prevState => ({
+        images: [...prevState.images, ...addedImages],
         total: Images.totalHits,
-      });
+      }));
     } catch (error) {
       console.log({ error });
     } finally {
@@ -59,6 +59,7 @@ export class App extends Component {
   loadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
+
   changeSearchQuery = ({ search }) => {
     this.setState({ search, images: [], page: 1 });
   };
