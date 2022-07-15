@@ -76,13 +76,12 @@ export class App extends Component {
       <div className="App">
         <Searchbar onSubmit={this.changeSearchQuery} />
         <ToastContainer autoClose={2000} />
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <ImageGallery items={images} onClick={this.onImgClick}>
-            {isOpen ? 'Close' : 'Open'}
-          </ImageGallery>
+        {isLoading && <Loader />}
+
+        {images.length > 0 && (
+          <ImageGallery items={images} onClick={this.onImgClick}></ImageGallery>
         )}
+
         {isOpen && (
           <Modal onClose={this.toggleModal} fullImage={fullImage} tags={tags} />
         )}
